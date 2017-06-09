@@ -3,27 +3,27 @@
 
 故事背景： 最近在使用ant-mobile开发web app 应用，遇到TabBar组件切换问题，在ant-mobile的issues中搜到一些实践案例，但是感觉并没有完美解决这个问题，经过思考找出了下面这个最佳实践。你需要关注的几个文件及代码：
 
-#### src/router/router.js
+#### 1、src/router/router.js
 
 ```
 <Router history={history}>
-            <Route path='/' component={IndexPage}>
-                <IndexRedirect to="/login"/>
-                <Route path='/login' component={Login}/>
-                <Route path='/home' component={HomePage}/>
-                <Route component={HomePage}>
-                    <Route path='/customer/:type' component={Customer}/>
-                    <Route path='/agent/:type' component={Agent}/>
-                    <Route path='/store/:type' component={Store}/>
-                    <Route path='/user/:type' component={User}/>
-                </Route>
-                <Route path="/*" component={NotFoundPage}/>
-            </Route>
-        </Router>
+<Route path='/' component={IndexPage}>
+    <IndexRedirect to="/login"/>
+    <Route path='/login' component={Login}/>
+    <Route path='/home' component={HomePage}/>
+    <Route component={HomePage}>
+        <Route path='/customer/:type' component={Customer}/>
+        <Route path='/agent/:type' component={Agent}/>
+        <Route path='/store/:type' component={Store}/>
+        <Route path='/user/:type' component={User}/>
+    </Route>
+    <Route path="/*" component={NotFoundPage}/>
+</Route>
+</Router>
 ```
 定义路由，根据url匹配相应的组件
 
-### src/routers/HomePage/HomePage.js
+### 2、src/routers/HomePage/HomePage.js
 
 ```
 render() {
@@ -38,7 +38,7 @@ render() {
 将路由组件通过homePage传入TabBarNav组件中
 
 
-#### src/components/Common/TabBarNav/TabBarNav.js
+#### 3、src/components/Common/TabBarNav/TabBarNav.js
 
 ```
 <TabBar
@@ -113,11 +113,11 @@ render() {
 ```
 根据传入组件的props.params.type判断是否渲染tab页内容。
 
-大功告成，这样既可实现通过react-router-redux控制路由跳转，进一步控制相应的组件渲染，详细代码可以查看相应的文件。
+简单3步，大功告成，这样既可实现通过react-router-redux控制路由跳转，进一步控制相应的组件渲染，详细代码可以查看相应的文件。
 
 #### 番外篇：
 
-下面解释下，在router.js中为什么使用```<Route path='/customer/:type' component={Customer}/>``` type 参数？
+下面解释下，在router.js中为什么使用```<Route path='/customer/:type' component={Customer}/>``` type 参数？<br>
 TabBar标准使用姿势是：
 ```
 <TabBar>
