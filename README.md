@@ -21,6 +21,22 @@
             </Route>
         </Router>
 ```
+定义路由，根据url匹配相应的组件
+
+### src/routers/HomePage/HomePage.js
+
+```
+render() {
+    const {children} = this.props;
+    return (
+        <div className={styles.homePage}>
+            <TabBarNav tabBarChildren={children}/>
+        </div>
+    );
+}
+```
+将路由组件通过homePage传入TabBarNav组件中
+
 
 #### src/components/Common/TabBarNav/TabBarNav.js
 
@@ -95,6 +111,7 @@
     </TabBarItem>
 </TabBar>
 ```
+根据传入组件的props.params.type判断是否渲染tab页内容。
 
 大功告成，这样既可实现通过react-router-redux控制路由跳转，进一步控制相应的组件渲染，详细代码可以查看相应的文件。
 
@@ -110,6 +127,12 @@ TabBar标准使用姿势是：
 ```
 这样在切换不同tab项的时候，其他的组件也会渲染，只是给隐藏了起来，就像这样：
 ![](src/assets/pic.png)
+
+为了避免切换时其他tab页的组件渲染，所以在路由中引入了type参数，通过传入的type参数控制不同tab页内容的渲染。
+
+觉得有帮助就来个Star :)
+
+这里是我de[个人博客](https://blog.yvanwang.com/)
 
 
 
